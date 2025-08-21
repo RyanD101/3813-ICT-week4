@@ -25,9 +25,9 @@ class User{
 }
 
 const users = [
-  new User ("john@example.com", "123",  "10",  "10",  "10"),
-  new User ("sarah@example.com", "345",  "10",  "10",  "10"),
-  new User ("paul@example.com", "678",  "10",  "10",  "10"),
+  new User ("john@example.com", "123",  "John21",  "10/01/2004",  "21"),
+  new User ("sarah@example.com", "345",  "Sarah5012",  "02/04/1997",  "28"),
+  new User ("paul@example.com", "678",  "Paul3",  "06/09/1999",  "25"),
 ];
 
 app.post('/api/auth', (req, res) => {
