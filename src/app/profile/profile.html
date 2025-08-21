@@ -1,1 +1,25 @@
-<p>profile works!</p>
+<h2>Profile Page</h2>
+
+<form (ngSubmit)="save()">
+  <div class="mb-3">
+    <label>Email</label>
+    <input class="form-control" [(ngModel)]="user.email" name="email">
+  </div>
+
+  <div class="mb-3">
+    <label>Username</label>
+    <input class="form-control" [(ngModel)]="user.username" name="username">
+  </div>
+
+  <div class="mb-3">
+    <label>Birthdate</label>
+    <input class="form-control" [(ngModel)]="user.birthdate" name="birthdate" placeholder="YYYY-MM-DD">
+  </div>
+
+  <div class="mb-3">
+    <label>Age</label>
+    <input type="number" class="form-control" [(ngModel)]="user.age" name="age">
+  </div>
+
+  <button class="btn btn-primary" type="submit">Save</button>
+</form>

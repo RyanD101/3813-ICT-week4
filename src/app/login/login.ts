@@ -1,34 +1,44 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule],
+  imports: [FormsModule, HttpClientModule],
   templateUrl: './login.html',
   styleUrl: './login.css'
 })
 export class Login {
   email = '';
   password = '';
-
-  users = [
-    {email: 'user1@gmail.com', password: '1234'}
-  ];
-
   errorMessage = '';
   
-  constructor(private router: Router) {}
+  constructor(private router: Router, private http: HttpClient) {}
 
   login() {
-    const found = this.users.find(
-      u => u.email === this.email && u.password === this.password
-    );
+    this.http.post<any>('http://localhost:3000/api/auth', {
+      email: this.email,
+      password: this.password
+    })
+    .subscribe(data => {
+      if (data.valid){
+        localStorage.setItem("user", JSON.stringify({
+          email: data.email,
+          username: data.username,
+          birthdate: data.birthdate,
+          age: data.age
+        }));
 
-    if (found) {
-      this.router.navigate(['/profile']);
-    } else {
-      this.errorMessage = 'Invalid email or password';
+        this.router.navigate(['/profile']);
+      } else {
+        this.errorMessage = 'Invalid email or password';
+      } 
+    },
+    error => {
+      this.errorMessage = 'Server error, please try again later';
+      console.error(error);
     }
-  }
+  );
+}
 }
